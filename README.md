@@ -29,11 +29,13 @@ pip install -r requirements.txt
 default: _localhost:9200_
 
 ```bash
+# Deploy to localhost:9200
 fab deploy
 ```
 
 _Example deploy to other host_
 ```bash
+# Deploy to example.org:9200
 fab deploy:example.org:9200
 ```
 
@@ -41,10 +43,12 @@ fab deploy:example.org:9200
 default: _localhost:9200_
 
 ```bash
+# Delete from localhost:9200
 fab delete
 ```
 
 _Example delete from other host_
 ```bash
+# Delete from example.org:9200
 fab delete:example.org:9200
 ```
