@@ -1,4 +1,4 @@
-# Index Template for Elasticsearch
+# Elasticsearch Index Template
 
 ## Version
 * _elasticsearch 1.7 - 2.1_
