@@ -7,66 +7,91 @@
         "keyword_analyzer": {
           "type": "custom",
           "char_filter": [
-            "icu_normalizer"
+            "normalize",
+            "whitespaces"
           ],
           "tokenizer": "keyword",
           "filter": [
-            "lowercase"
+            "lowercase",
+            "trim",
+            "maxlength"
           ]
         },
         "autocomplete_index_analyzer": {
           "type": "custom",
           "char_filter": [
-            "icu_normalizer"
+            "normalize",
+            "whitespaces"
           ],
           "tokenizer": "keyword",
           "filter": [
             "lowercase",
+            "trim",
+            "maxlength",
             "engram"
           ]
         },
         "autocomplete_search_analyzer": {
           "type": "custom",
           "char_filter": [
-            "icu_normalizer"
+            "normalize",
+            "whitespaces"
           ],
           "tokenizer": "keyword",
           "filter": [
-            "lowercase"
+            "lowercase",
+            "trim",
+            "maxlength"
           ]
         },
         "readingform_index_analyzer": {
           "type": "custom",
           "char_filter": [
-            "icu_normalizer"
+            "normalize",
+            "whitespaces"
           ],
           "tokenizer": "japanese_normal",
           "filter": [
             "lowercase",
+            "trim",
             "readingform",
             "asciifolding",
             "shingle",
+            "maxlength",
             "engram"
+          ]
+        },
+        "readingform_search_analyzer": {
+          "type": "custom",
+          "char_filter": [
+            "normalize",
+            "whitespaces",
+            "katakana"
+          ],
+          "tokenizer": "whitespace",
+          "filter": [
+            "lowercase",
+            "trim",
+            "maxlength",
+            "readingform",
+            "asciifolding"
           ]
         }
       },
-      "readingform_search_analyzer": {
-        "type": "custom",
-        "char_filter": [
-          "icu_normalizer",
-          "katakana"
-        ],
-        "tokenizer": "whitespace",
-        "filter": [
-          "lowercase",
-          "readingform",
-          "asciifolding"
-        ]
-      },
       "char_filter": {
+        "normalize": {
+          "type": "icu_normalizer",
+          "name": "nfkc",
+          "mode": "compose"
+        },
         "katakana": {
           "type": "mapping",
           "mappings": ["ぁ=>ァ", "ぃ=>ィ", "ぅ=>ゥ", "ぇ=>ェ", "ぉ=>ォ", "っ=>ッ", "ゃ=>ャ", "ゅ=>ュ", "ょ=>ョ", "が=>ガ", "ぎ=>ギ", "ぐ=>グ", "げ=>ゲ", "ご=>ゴ", "ざ=>ザ", "じ=>ジ", "ず=>ズ", "ぜ=>ゼ", "ぞ=>ゾ", "だ=>ダ", "ぢ=>ヂ", "づ=>ヅ", "で=>デ", "ど=>ド", "ば=>バ", "び=>ビ", "ぶ=>ブ", "べ=>ベ", "ぼ=>ボ", "ぱ=>パ", "ぴ=>ピ", "ぷ=>プ", "ぺ=>ペ", "ぽ=>ポ", "ゔ=>ヴ", "あ=>ア", "い=>イ", "う=>ウ", "え=>エ", "お=>オ", "か=>カ", "き=>キ", "く=>ク", "け=>ケ", "こ=>コ", "さ=>サ", "し=>シ", "す=>ス", "せ=>セ", "そ=>ソ", "た=>タ", "ち=>チ", "つ=>ツ", "て=>テ", "と=>ト", "な=>ナ", "に=>ニ", "ぬ=>ヌ", "ね=>ネ", "の=>ノ", "は=>ハ", "ひ=>ヒ", "ふ=>フ", "へ=>ヘ", "ほ=>ホ", "ま=>マ", "み=>ミ", "む=>ム", "め=>メ", "も=>モ", "や=>ヤ", "ゆ=>ユ", "よ=>ヨ", "ら=>ラ", "り=>リ", "る=>ル", "れ=>レ", "ろ=>ロ", "わ=>ワ", "を=>ヲ", "ん=>ン"]
+        },
+        "whitespaces": {
+          "type": "pattern_replace",
+          "pattern": "\\s{2,}",
+          "replacement": "\u0020"
         }
       },
       "filter": {
@@ -83,6 +108,10 @@
           "type": "shingle",
           "min_shingle_size": 2,
           "max_shingle_size": 6
+        },
+        "maxlength": {
+          "type": "length",
+          "max": 36
         }
       },
       "tokenizer": {
