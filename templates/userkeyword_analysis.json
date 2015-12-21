@@ -56,7 +56,6 @@
             "trim",
             "readingform",
             "asciifolding",
-            "shingle",
             "maxlength",
             "engram"
           ]
@@ -103,11 +102,6 @@
           "type": "edgeNGram",
           "min_gram": 1,
           "max_gram": 36
-        },
-        "shingle": {
-          "type": "shingle",
-          "min_shingle_size": 2,
-          "max_shingle_size": 6
         },
         "maxlength": {
           "type": "length",
