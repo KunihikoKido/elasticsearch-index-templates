@@ -65,7 +65,8 @@
           "char_filter": [
             "normalize",
             "whitespaces",
-            "katakana"
+            "katakana",
+            "remove_kanji"
           ],
           "tokenizer": "whitespace",
           "filter": [
@@ -91,6 +92,11 @@
           "type": "pattern_replace",
           "pattern": "\\s{2,}",
           "replacement": "\u0020"
+        },
+        "remove_kanji": {
+          "type": "pattern_replace",
+          "pattern": "[一-龠]+",
+          "replacement": ""
         }
       },
       "filter": {
